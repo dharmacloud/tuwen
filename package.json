@@ -11,6 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "canvas": "^2.11.0",
+    "pdfjs-dist": "^3.4.120",
     "pngjs": "^7.0.0"
   }
 }
