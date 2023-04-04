@@ -3,14 +3,14 @@ import {createCanvas} from 'canvas'
 import fs from 'fs'
 
 
-const srcdir='e:/taisho-pdf/'
-const outdir='e:/taisho-jpg/'
+const srcdir='e:/longzhang/'
+const outdir='e:/longzhang-jpg/'
 
 const renderPage=async (page,i,vol)=>{
   let scale=1;
   let t=new Date();
   let viewport = page.getViewport({ scale});
-  scale=4000/viewport.width;
+  scale=1024/viewport.width;
   if (scale!==1) viewport = page.getViewport({ scale});
   const canvas = createCanvas(viewport.width, viewport.height);
   let context = canvas.getContext('2d');
@@ -25,7 +25,7 @@ const renderPage=async (page,i,vol)=>{
     renderTask.promise.then(function(){
       if (!fs. existsSync(outdir+vol)) fs. mkdirSync(outdir+vol);
       
-      const outfn=outdir+vol+'/'+(i).toString().padStart(4,'0')+'.jpg';
+      const outfn=outdir+vol+'/'+(i).toString().padStart(3,'0')+'.jpg';
       const out = fs.createWriteStream(outfn)
       const stream = canvas.createJPEGStream()
       stream.pipe(out)
@@ -42,8 +42,8 @@ async function loadPdf(fn){
   return await loadingTask.promise;
 }
 const vols=[]
-for (let i=2;i<=85;i++) {
-  vols.push('T'+ i.toString().padStart(2,'0'));
+for (let i=147;i<=166;i++) {
+  vols.push(i.toString().padStart(3,'0'));
 }
 const dumpVol=async (vol)=>{
   const pdf=await loadPdf(srcdir+vol+'.pdf');
